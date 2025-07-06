@@ -58,96 +58,82 @@ Dependencies
 - C++ Standard Library (iostream, fstream, chrono, string, vector, sstream, vector, iomainp)
 - Windows-specific library (`conio.h`) for password input masking
 
-Explanation of the main code:
+## Key Features
+- **Role-based access control** (Student, Faculty, Librarian)
+- **Book management** (add/remove/update)
+- **User account management**
+- **Borrow/return operations**
+- **Fine calculation** for overdue books
+- **File I/O persistence** for all data
 
-1. Helper Functions
-	getCurrentDateTimeString(): Returns the current date and time as a formatted string: "YYYY MM DD HH MM SS".
-		Uses chrono and ctime libraries.
-	calculateDaysPassed(const std::string& dateTimeStr): Calculates the number of days passed since a given date.
-		Converts the given string (YYYY MM DD HH MM SS) into a tm struct. Uses std::difftime() to get the difference between the current date and the provided date.
+## Class Structure
 
-2. Books Class
-	Purpose: Represents a book in the library.
-	Attributes: title, author, publisher, year, status, ISBN, lineno
-	Constructor: Books(string isbn) Reads from book.txt to fetch book details based on the given ISBN. If the book is not found, it prints a message.
-	Methods:
-		change_book_status_to(string Status): Updates the book's status in book.txt (e.g., Available/Borrowed).
+### Helper Functions
+- `getCurrentDateTimeString()`  
+  Returns current date/time as "YYYY MM DD HH MM SS" string
+- `calculateDaysPassed(const std::string& dateTimeStr)`  
+  Calculates days passed since given date
 
-3. Account Base Class
-	Purpose: Represents a user account.
-	Attributes: UserID, password, lineno(represents the line number of the userid in the txt file), curr_borr(represents number of currently borrowed books)
-	Methods:
-		Verifyuser(): Check the user from the txt files.
+### Books Class
+**Purpose**: Represents a book in the library  
+**Attributes**:
+- title, author, publisher, year
+- status, ISBN, lineno
 
-	3.1 StudAccount (Inherits from Account)
-		Purpose: Represents a student’s account.
-		Constructor: StudAccount(string userid, string pass)-Initializes UserID and password.
-		Methods:
-			Verifyuser(): Checks the student’s credentials from a1.txt.
-			showAccountDetails(): Displays borrowed books, fines, and borrowing history.
-			add_bk_to_curr_borr(Books b): Adds a book to the student’s currently borrowed books list.
-			move_bk_from_curr_to_his(Books b): Moves a returned book from currently borrowed list to the borrowing history.
-			showfine(): Calculates the fine based on overdue books.
-			cleardues(): Clears the outstanding fine.
+**Methods**:
+- `Books(string isbn)` (constructor)
+- `change_book_status_to(string Status)`
 
-	3.2 FacultyAccount (Inherits from Account)
-			Purpose: Represents a faculty’s account.
-			Constructor: FacultyAccount(string userid, string pass)-Initializes UserID and password.
-			Methods:
-				Verifyuser(): Checks the faculty’s credentials from a2.txt.
-				showAccountDetails(): Displays borrowed books and history.
-				add_bk_to_curr_borr(Books b): Adds a borrowed book to faculty’s record.
-				move_bk_from_curr_to_his(Books b): Moves a returned book to history.
-				max_days(): Finds the maximum overdue days for a faculty member.
+### Account Hierarchy (Base Class)
+**Attributes**:
+- UserID, password
+- lineno (file line number)
+- curr_borr (current borrowed count)
 
-	3.3 LibrarianAccount (Inherits from Account)
-			Purpose: Represents a librarian’s account.
-			Constructor: LibrarianAccount(string userid, string pass)
-			Methods:
-				Verifyuser(): Checks the librarian’s credentials from a3.txt.
+#### 1. StudAccount (Student)
+**Methods**:
+- `Verifyuser()` (checks a1.txt)
+- `showAccountDetails()`
+- `add_bk_to_curr_borr(Books b)`
+- `move_bk_from_curr_to_his(Books b)`
+- `showfine()`, `cleardues()`
 
-4. User Base Class
-	Purpose: Represents a general user with UserID.
+#### 2. FacultyAccount (Faculty)
+**Methods**:
+- `Verifyuser()` (checks a2.txt)
+- `max_days()` (calculates max overdue)
 
-	4.1. Student (Inherits from User)
-		Purpose: Represents a student user.
-		Constructor: Student(string userid)
-		Methods:
-			borrowBook(Books b, StudAccount A): Allows borrowing a book if no fine and limit (<3 books).
-			returnBook(Books b, StudAccount A): Allows returning a book.
-			payfine(StudAccount A): Clears the outstanding fine.
-	
-	4.2 Faculty (Inherits from User)
-		Purpose: Represents a faculty user.
-		Methods:
-			borrowBook(Books b, FacultyAccount A): Faculty can borrow a book if no overdue books (limit: 5 books).
-			returnBook(Books b, FacultyAccount A): Returns a book.
-	
-	4.3 Librarian (Inherits from User)
-		Purpose: Represents a librarian user.
-		Methods:
-			add_book(string title, string author, string publisher, string year, string isbn): Adds a new book to book.txt.
-			remove_book(string isbn): Removes a book from book.txt.
-			add_user_stud(string userid, string pass): Adds a new student account to a1.txt.
-			remove_user_stud(string userid): Removes a student account form a1.txt.
-			add_user_facu(string userid, string pass): Adds a new faculty account to a2.txt.
-			remove_user_facu(string userid): Removes a faculty account form a2.txt.
+#### 3. LibrarianAccount (Librarian)
+**Methods**:
+- `Verifyuser()` (checks a3.txt)
 
-5. main() Function
-	Purpose: Handles user login and operations.
-	Steps:
-		Asks user to select a role:
-		1 → Student
-		2 → Faculty
-		3 → Librarian
-		Then asks for UserID and password`.
-		Password is entered using _getch() (hides input with *).
-		Authenticate the user.
-		Calls Verifyuser() for respective account type.
-		Perform actions based on user role:
-			Student: Borrow, return, view account, clear dues.
-			Faculty: Borrow, return, view account.
-			Librarian: Add/remove books, add/remove users.
+### User Hierarchy (Base Class)
+**Attributes**: UserID
+
+#### 1. Student
+**Methods**:
+- `borrowBook(Books b, StudAccount A)`
+- `returnBook(Books b, StudAccount A)`
+- `payfine(StudAccount A)`
+
+#### 2. Faculty
+**Methods**:
+- `borrowBook(Books b, FacultyAccount A)`
+- `returnBook(Books b, FacultyAccount A)`
+
+#### 3. Librarian
+**Methods**:
+- `add_book()`/`remove_book()`
+- `add_user_stud()`/`remove_user_stud()`
+- `add_user_facu()`/`remove_user_facu()`
+
+## Main Program Flow
+1. Role selection (1-Student, 2-Faculty, 3-Librarian)
+2. UserID/password authentication (hidden input)
+3. Role-specific operations:
+   - **Students**: Borrow/return, view account, clear dues
+   - **Faculty**: Borrow/return, view account
+   - **Librarians**: Manage books/users
 
 
 
