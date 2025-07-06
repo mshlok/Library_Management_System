@@ -1,0 +1,69 @@
+401
+The Great Gatsby
+F. Scott Fitzgerald	
+Scribner	
+1925		
+Available
+
+402
+To Kill a Mockingbird	
+Harper Lee	
+J.B. Lippincott & Co.	
+1960		
+Available
+
+403
+1984	
+George Orwell	
+Secker & Warburg	
+1949		
+Reserved
+
+404
+Pride and Prejudice	
+Jane Austen	
+T. Egerton	
+1813		
+Available
+
+405
+The Catcher in the Rye	
+J.D. Salinger	
+Little, Brown and Company	
+1951		
+Available
+
+406
+Moby-Dick	
+Herman Melville	
+Harper & Brothers	
+1851		
+Available
+
+407
+War and Peace	
+Leo Tolstoy	
+The Russian Messenger	
+1869		
+Available
+
+408
+The Odyssey	
+Homer	
+Penguin Classics	
+-800		
+Available
+
+409
+Crime and Punishment	
+Fyodor Dostoevsky	
+The Russian Messenger	
+1866		
+Available
+
+410
+The Lord of the Rings	
+J.R.R. Tolkien	
+Allen & Unwin	
+1954		
+Available

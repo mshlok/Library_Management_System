@@ -1,0 +1,56 @@
+101
+stud1@123
+Current
+0
+Fine
+0
+History
+0
+ 
+102
+stud2@123
+Current
+0
+Fine on returned books
+0
+History
+0
+
+103
+stud3@123
+Current
+0
+Fine on returned books
+0
+History
+0
+
+104
+stud4@123
+Current
+0
+Fine on returned books
+0
+History
+0
+
+105
+stud5@123
+Current
+0
+Fine on returned books
+0
+History
+0
+
+106
+stud6@123
+Current
+0
+Fine on returned books
+0
+History
+0
+
+
+
